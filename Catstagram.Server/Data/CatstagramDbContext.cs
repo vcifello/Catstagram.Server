@@ -10,9 +10,8 @@ namespace Catstagram.Server.Data
             : base(options)
         {
         }
-  
-        public DbSet<Cat> Cats { get; set; }
 
+        public DbSet<Cat> Cats => Set<Cat>();
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
