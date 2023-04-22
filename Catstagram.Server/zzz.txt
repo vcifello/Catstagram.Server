@@ -1,0 +1,13 @@
+﻿
+"Server=localhost,1433;Initial Catalog=aspnet-Catstagram.Server-be5178f8-ba40-4ca2-99ae-0b1eb199f35a;User Id=SA;Password=Winter23.;Trusted_Connection=True;Max Pool Size=100;Encrypt=false";
+
+
+ "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=aspnet-Catstagram.Server-be5178f8-ba40-4ca2-99ae-0b1eb199f35a;Trusted_Connection=True;MultipleActiveResultSets=true"
+ 
+
+ onnectionStrings": {
+    "DefaultConnection": "Server=Vincents-MacBook-Pro.local,1433;Initial Catalog=Catstagram;User Id=SA;Password=Winter23.;Trusted_Connection=false;Encrypt=false"
+  },
+
+  D:\home\data\mysql\MYSQLCONNSTR_localdb.txt
+  Database=localdb;Data Source=127.0.0.1:55404;User Id=azure;Password=6#vWHD_$
