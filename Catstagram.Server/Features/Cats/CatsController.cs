@@ -18,7 +18,7 @@ public class CatsController : ApiController
     [HttpGet]
     public async Task<IEnumerable<CatListingServiceModel>> Mine()
     {
-        var userId =this.User.GetId()!;
+        var userId = this.User.GetId()!;
 
         return await this.catService.ByUser(userId);
 
@@ -41,5 +41,21 @@ public class CatsController : ApiController
             userId!);
 
         return Created(nameof(this.Create), id);
+    }
+
+    [HttpPut]
+    public async Task<ActionResult> Update(UpdateCatRequestModel model)
+    {
+        var userId = this.User.GetId();
+        var updated = await this.catService.Update(
+            model.Id,
+            model.Description,
+            userId);
+
+        if (!updated)
+        {
+            return BadRequest();
+        }
+        return Ok();
     }
 }
