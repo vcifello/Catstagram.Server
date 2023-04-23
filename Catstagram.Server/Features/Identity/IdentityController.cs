@@ -8,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
+using Catstagram.Server.Features.Identity.Models;
 
 namespace Catstagram.Server.Features.Identity
 {

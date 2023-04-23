@@ -3,18 +3,20 @@ using Microsoft.AspNetCore.Authorization;
 using Catstagram.Server.Infrastructure;
 using Catstagram.Server.Data.Models;
 using Catstagram.Server.Data;
+using Catstagram.Server.Features.Cats.Models;
+using Catstagram.Server.Infrastructure.Extensions;
 
 namespace Catstagram.Server.Features.Cats;
 
+[Authorize]
 public class CatsController : ApiController
 {
     private readonly ICatService catService;
 
     public CatsController(ICatService catService) => this.catService = catService;
 
-    [Authorize]
     [HttpGet]
-    public async Task<IEnumerable<CatListingResponseModel>> Mine()
+    public async Task<IEnumerable<CatListingServiceModel>> Mine()
     {
         var userId =this.User.GetId()!;
 
@@ -22,7 +24,12 @@ public class CatsController : ApiController
 
     }
 
-    [Authorize]
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<ActionResult<CatDetailsServiceModel?>> Details(int id)
+        => await this.catService.Details(id);
+
+
     [HttpPost]
     public async Task<ActionResult<int>> Create(CreateCatRequestModel model)
     {

@@ -1,13 +1,5 @@
-using System.Globalization;
-using Catstagram.Server;
-using Catstagram.Server.Data;
-using Catstagram.Server.Data.Models;
-using Catstagram.Server.Infrastructure;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Catstagram.Server.Infrastructure.Extensions;
+using Catstagram.Server.Infrastructure.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +10,7 @@ builder.Services
     .AddJwtAuthentication(builder.Services.GetApplicationSettings(builder.Configuration))
     .AddApplicationServices()
     .AddSwagger()
-    .AddControllers();
+    .AddApiControllers();
 
 var app = builder.Build();
 
