@@ -139,3 +139,8 @@
 /Users/vincentcifello/Documents/Computer/vindotnet/codeitupAmbitioned/Catstagram.Server/Catstagram.Server/obj/Debug/net6.0/Catstagram.Server.pdb
 /Users/vincentcifello/Documents/Computer/vindotnet/codeitupAmbitioned/Catstagram.Server/Catstagram.Server/obj/Debug/net6.0/Catstagram.Server.genruntimeconfig.cache
 /Users/vincentcifello/Documents/Computer/vindotnet/codeitupAmbitioned/Catstagram.Server/Catstagram.Server/obj/Debug/net6.0/ref/Catstagram.Server.dll
+/Users/vincentcifello/Documents/Computer/vindotnet/codeitupAmbitioned/Catstagram.Server/Catstagram.Server/bin/Debug/net6.0/Microsoft.OpenApi.dll
+/Users/vincentcifello/Documents/Computer/vindotnet/codeitupAmbitioned/Catstagram.Server/Catstagram.Server/bin/Debug/net6.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/vincentcifello/Documents/Computer/vindotnet/codeitupAmbitioned/Catstagram.Server/Catstagram.Server/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/vincentcifello/Documents/Computer/vindotnet/codeitupAmbitioned/Catstagram.Server/Catstagram.Server/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/vincentcifello/Documents/Computer/vindotnet/codeitupAmbitioned/Catstagram.Server/Catstagram.Server/obj/Debug/net6.0/Catstagram.Server.MvcApplicationPartsAssemblyInfo.cs

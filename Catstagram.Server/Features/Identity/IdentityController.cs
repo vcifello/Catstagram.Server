@@ -1,39 +1,42 @@
-﻿using Catstagram.Server.Data.Models;
-using Catstagram.Server.Models.Identity;
+﻿using System;
+using System.Reflection.Metadata;
+using Catstagram.Server.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using static Humanizer.In;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.Extensions.Options;
-using Microsoft.EntityFrameworkCore.Design.Internal;
 using System.Security.Claims;
 
-namespace Catstagram.Server.Controllers
+namespace Catstagram.Server.Features.Identity
 {
     public class IdentityController : ApiController
     {
         private readonly UserManager<User> userManager;
         private readonly AppSettings appSettings;
+        private readonly IIdentityService identityService;
 
         public IdentityController(
             UserManager<User> userManager,
+            IIdentityService identityService,
             IOptions<AppSettings> appSettings)
         { 
+            this.identityService = identityService;
             this.userManager = userManager;
             this.appSettings = appSettings.Value;
         }
 
+        [HttpPost]
         [Route(nameof(Register))]
         public async Task<ActionResult> Register(RegisterUserRequestModel model)
         {
-            var user = new User 
-            { 
+            var user = new User
+            {
                 UserName = model.UserName,
                 Email = model.Email
-            };     
-            
+            };
+
             var result = await userManager.CreateAsync(user, model.Password); 
 
             if (result.Succeeded)
@@ -44,8 +47,9 @@ namespace Catstagram.Server.Controllers
             return BadRequest(result.Errors);
         }
 
+        [HttpPost]
         [Route(nameof(Login))]
-        public async Task<ActionResult<object>> Login(LoginRequestModel model)
+        public async Task<ActionResult<LoginResponseModel>> Login(LoginRequestModel model)
         {
             var user = await this.userManager.FindByNameAsync(model.UserName);
             if (user is null)
@@ -60,25 +64,14 @@ namespace Catstagram.Server.Controllers
                 return Unauthorized();
             }
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(this.appSettings.Secret);
+            var token = identityService.GenerateJwtToken(
+                user.Id,
+                user.UserName,
+                this.appSettings.Secret);
 
-            var tokenDescriptor = new SecurityTokenDescriptor
+            return  new LoginResponseModel
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.UserName)
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var encryptedToken = tokenHandler.WriteToken(token);
-
-            return  new
-            {
-                Token = encryptedToken
+                Token = token
             };
 
         }
