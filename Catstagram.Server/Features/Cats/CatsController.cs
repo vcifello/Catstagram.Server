@@ -5,6 +5,7 @@ using Catstagram.Server.Data.Models;
 using Catstagram.Server.Data;
 using Catstagram.Server.Features.Cats.Models;
 using Catstagram.Server.Infrastructure.Extensions;
+using static Catstagram.Server.Infrastructure.WebConstants;
 
 namespace Catstagram.Server.Features.Cats;
 
@@ -25,7 +26,7 @@ public class CatsController : ApiController
     }
 
     [HttpGet]
-    [Route("{id}")]
+    [Route(Id)]
     public async Task<ActionResult<CatDetailsServiceModel?>> Details(int id)
         => await this.catService.Details(id);
 
@@ -57,5 +58,22 @@ public class CatsController : ApiController
             return BadRequest();
         }
         return Ok();
+    }
+
+    [HttpDelete]
+    [Route(Id)]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var userId = this.User.GetId();
+
+        var deleted = await this.catService.Delete(id, userId);
+
+        if (!deleted)
+        {
+            return BadRequest();
+        }
+        
+        return Ok();
+
     }
 }

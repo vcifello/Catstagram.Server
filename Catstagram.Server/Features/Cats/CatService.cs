@@ -59,12 +59,9 @@ public class CatService : ICatService
 
     public async Task<bool> Update(int id, string description, string userId)
     {
-        var cat = await this.data
-            .Cats
-            .Where(c => c.Id == id && c.UserId == userId)
-            .FirstOrDefaultAsync();
+        var cat = await this.GetByIdAndUserId(id, userId);
 
-        if (cat ==null)
+        if (cat == null)
         {
             return false;
         }
@@ -76,4 +73,26 @@ public class CatService : ICatService
         return true;
 
     }
+
+    public async Task<bool> Delete(int id, string userId)
+    {
+        var cat = await this.GetByIdAndUserId(id, userId);
+
+        if (cat == null)
+        {
+            return false;
+        }
+        this.data.Cats.Remove(cat);
+
+        await this.data.SaveChangesAsync();
+
+        return true;
+    }
+
+    private async Task<Cat?> GetByIdAndUserId(int id, string userId)
+        => await this.data
+                .Cats
+                .Where(c => c.Id == id && c.UserId == userId)
+                .FirstOrDefaultAsync();
+
 }
