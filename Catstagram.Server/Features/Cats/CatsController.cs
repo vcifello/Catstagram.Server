@@ -13,6 +13,16 @@ public class CatsController : ApiController
     public CatsController(ICatService catService) => this.catService = catService;
 
     [Authorize]
+    [HttpGet]
+    public async Task<IEnumerable<CatListingResponseModel>> Mine()
+    {
+        var userId =this.User.GetId()!;
+
+        return await this.catService.ByUser(userId);
+
+    }
+
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<int>> Create(CreateCatRequestModel model)
     {

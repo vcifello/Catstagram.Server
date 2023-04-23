@@ -17,6 +17,6 @@ public class Cat
 
     [Required]
     public string UserId { get; set; } = string.Empty;
-    public User User { get; set; } = new();
+    public User? User { get; set; }
 
 }
