@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Catstagram.Server.Infrastructure;
-using Catstagram.Server.Data.Models;
-using Catstagram.Server.Data;
 using Catstagram.Server.Features.Cats.Models;
 using Catstagram.Server.Infrastructure.Extensions;
+
 using static Catstagram.Server.Infrastructure.WebConstants;
 
 namespace Catstagram.Server.Features.Cats;
