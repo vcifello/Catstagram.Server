@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services
+    .AddHttpContextAccessor()
     .AddDatabase(builder.Configuration)
     .AddIdentity()
     .AddJwtAuthentication(builder.Services.GetApplicationSettings(builder.Configuration))

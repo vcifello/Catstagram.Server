@@ -16,14 +16,14 @@ namespace Catstagram.Server.Features.Identity
     {
         private readonly UserManager<User> userManager;
         private readonly AppSettings appSettings;
-        private readonly IIdentityService identityService;
+        private readonly IIdentityService identity;
 
         public IdentityController(
             UserManager<User> userManager,
-            IIdentityService identityService,
+            IIdentityService identity,
             IOptions<AppSettings> appSettings)
-        { 
-            this.identityService = identityService;
+        {
+            this.identity = identity;
             this.userManager = userManager;
             this.appSettings = appSettings.Value;
         }
@@ -38,7 +38,7 @@ namespace Catstagram.Server.Features.Identity
                 Email = model.Email
             };
 
-            var result = await userManager.CreateAsync(user, model.Password); 
+            var result = await userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
@@ -65,12 +65,12 @@ namespace Catstagram.Server.Features.Identity
                 return Unauthorized();
             }
 
-            var token = identityService.GenerateJwtToken(
+            var token = identity.GenerateJwtToken(
                 user.Id,
                 user.UserName,
                 this.appSettings.Secret);
 
-            return  new LoginResponseModel
+            return new LoginResponseModel
             {
                 Token = token
             };

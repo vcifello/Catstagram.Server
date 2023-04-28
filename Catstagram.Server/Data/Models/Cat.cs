@@ -1,10 +1,11 @@
 using System.Xml.Schema;
 using System.ComponentModel.DataAnnotations;
 using static Catstagram.Server.Data.Validation.Cat;
+using Catstagram.Server.Data.Models.Base;
 
 namespace Catstagram.Server.Data.Models;
 
-public class Cat
+public class Cat : DeletableEntity
 {
     public int Id { get; set; }
 
