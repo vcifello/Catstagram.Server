@@ -52,15 +52,16 @@ public class CatsController : ApiController
     }
 
     [HttpPut]
-    public async Task<ActionResult> Update(UpdateCatRequestModel model)
+    [Route(Id)]
+    public async Task<ActionResult> Update(int id, UpdateCatRequestModel model)
     {
         var userId = this.currentUser.GetId();
-        var updated = await this.cats.Update(
-            model.Id,
+        var result = await this.cats.Update(
+            id,
             model.Description,
             userId);
 
-        if (!updated)
+        if (result.Failure)
         {
             return BadRequest();
         }
@@ -73,9 +74,9 @@ public class CatsController : ApiController
     {
         var userId = this.currentUser.GetId();
 
-        var deleted = await this.cats.Delete(id, userId);
+        var result = await this.cats.Delete(id, userId);
 
-        if (!deleted)
+        if (result.Failure)
         {
             return BadRequest();
         }

@@ -5,7 +5,7 @@ namespace Catstagram.Server.Features.Cats.Models;
 
 public class UpdateCatRequestModel
 {
-    public int Id{get; set;}
+    //public int Id{get; set;}
 
     [Required]
     [MaxLength(MaxDescriptionLength)]

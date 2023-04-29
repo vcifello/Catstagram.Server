@@ -1,6 +1,7 @@
 using Catstagram.Server.Data;
 using Catstagram.Server.Data.Models;
 using Catstagram.Server.Features.Cats.Models;
+using Catstagram.Server.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Catstagram.Server.Features.Cats;
@@ -58,13 +59,13 @@ public class CatService : ICatService
             })
             .FirstOrDefaultAsync();
 
-    public async Task<bool> Update(int id, string description, string userId)
+    public async Task<Result> Update(int id, string description, string userId)
     {
         var cat = await this.GetByIdAndUserId(id, userId);
 
         if (cat == null)
         {
-            return false;
+            return "This user can not edit this cat";
         }
 
         cat.Description = description;
@@ -75,13 +76,13 @@ public class CatService : ICatService
 
     }
 
-    public async Task<bool> Delete(int id, string userId)
+    public async Task<Result> Delete(int id, string userId)
     {
         var cat = await this.GetByIdAndUserId(id, userId);
 
         if (cat == null)
         {
-            return false;
+            return "This user can not delete this cat";
         }
         this.data.Cats.Remove(cat);
 
