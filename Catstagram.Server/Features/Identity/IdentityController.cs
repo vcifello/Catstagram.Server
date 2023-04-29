@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using Catstagram.Server.Features.Identity.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Catstagram.Server.Features.Identity
 {
@@ -76,6 +77,7 @@ namespace Catstagram.Server.Features.Identity
             };
 
         }
+
 
     }
 }
